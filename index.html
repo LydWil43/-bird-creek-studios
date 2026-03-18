@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bird Creek Studios — Ideas Bank</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root {
+    --ink:        #1a1410;
+    --clay:       #7a3e1f;
+    --clay-mid:   #a0562e;
+    --clay-light: #c4845a;
+    --cream:      #f5ede0;
+    --parchment:  #ede0cc;
+    --smoke:      #d4c9bc;
+    --sage:       #6b7c5e;
+    --sage-light: #8fa080;
+    --charcoal:   #2c2420;
+    --ash:        #4a3f38;
+    --fog:        #8c7e74;
+    --paper:      #f0e8d8;
+    --reel-accent:#b07d4a;
+    --post-accent:#6b7c5e;
+    --booth-accent:#8a6a4a;
+  }
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+background-color: #1a1410;
+background-image:
+radial-gradient(ellipse at 15% 10%, rgba(122,62,31,0.15) 0%, transparent 50%),
+radial-gradient(ellipse at 85% 85%, rgba(107,124,94,0.10) 0%, transparent 50%),
+url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘300’ height=‘300’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.65’ numOctaves=‘3’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘300’ height=‘300’ filter=‘url(%23n)’ opacity=‘0.04’/%3E%3C/svg%3E”);
+font-family: ‘Cormorant Garamond’, serif;
+color: var(–cream);
+min-height: 100vh;
+}
+
+.palette-strip { display: flex; height: 5px; }
+.palette-strip span { flex: 1; }
+
+header {
+padding: 52px 60px 36px;
+display: flex;
+align-items: flex-end;
+justify-content: space-between;
+border-bottom: 1px solid rgba(196,132,90,0.2);
+position: relative;
+}
+header::before {
+content: ‘’;
+position: absolute;
+bottom: -1px; left: 60px;
+width: 100px; height: 2px;
+background: var(–clay-light);
+}
+.header-left h1 {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(2.2rem, 4vw, 3.6rem);
+font-weight: 400;
+letter-spacing: -0.02em;
+line-height: 1;
+color: var(–cream);
+}
+.header-left h1 em { font-style: italic; color: var(–clay-light); }
+.header-left .subtitle {
+font-size: 0.72rem;
+color: var(–fog);
+letter-spacing: 0.2em;
+text-transform: uppercase;
+margin-top: 10px;
+font-family: ‘DM Mono’, monospace;
+}
+.header-right {
+text-align: right;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.68rem;
+color: var(–fog);
+line-height: 2;
+}
+
+.section-nav {
+display: flex;
+padding: 0 60px;
+margin-top: 36px;
+border-bottom: 1px solid rgba(196,132,90,0.12);
+overflow-x: auto;
+}
+.section-nav button {
+background: none; border: none;
+padding: 13px 26px;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.68rem;
+letter-spacing: 0.14em;
+text-transform: uppercase;
+color: var(–fog);
+cursor: pointer;
+position: relative;
+transition: color 0.2s;
+white-space: nowrap;
+}
+.section-nav button::after {
+content: ‘’;
+position: absolute;
+bottom: -1px; left: 0; right: 0;
+height: 2px;
+background: var(–clay-light);
+transform: scaleX(0);
+transition: transform 0.25s;
+}
+.section-nav button:hover { color: var(–cream); }
+.section-nav button.active { color: var(–clay-light); }
+.section-nav button.active::after { transform: scaleX(1); }
+
+main { padding: 44px 60px 80px; }
+.section-panel { display: none; }
+.section-panel.active { display: block; }
+
+.section-header {
+display: flex;
+align-items: baseline;
+gap: 16px;
+margin-bottom: 32px;
+}
+.section-header h2 {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.9rem;
+font-weight: 400;
+font-style: italic;
+color: var(–cream);
+}
+.section-header .count {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.68rem;
+color: var(–fog);
+}
+.add-btn {
+margin-left: auto;
+background: none;
+border: 1px solid rgba(196,132,90,0.35);
+color: var(–clay-light);
+font-family: ‘DM Mono’, monospace;
+font-size: 0.68rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+padding: 8px 18px;
+cursor: pointer;
+transition: all 0.2s;
+white-space: nowrap;
+}
+.add-btn:hover { background: rgba(196,132,90,0.1); border-color: var(–clay-light); }
+
+.social-layout {
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+gap: 28px;
+align-items: start;
+}
+
+.social-col-header {
+display: flex;
+align-items: center;
+gap: 10px;
+margin-bottom: 16px;
+padding-bottom: 12px;
+border-bottom: 2px solid;
+}
+.social-col-header.reels   { border-color: var(–reel-accent); }
+.social-col-header.posts   { border-color: var(–post-accent); }
+.social-col-header.booth   { border-color: var(–booth-accent); }
+
+.social-col-header h3 {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.1rem;
+font-style: italic;
+font-weight: 400;
+color: var(–cream);
+}
+.social-col-header .col-count {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.62rem;
+color: var(–fog);
+margin-left: auto;
+}
+.col-add-btn {
+background: none; border: none;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.9rem;
+color: var(–fog);
+cursor: pointer;
+padding: 2px 6px;
+transition: color 0.2s;
+line-height: 1;
+}
+.col-add-btn:hover { color: var(–clay-light); }
+
+.board { columns: 3 260px; column-gap: 18px; }
+.social-col .board { columns: 1; }
+
+.card {
+break-inside: avoid;
+margin-bottom: 18px;
+background: #221c17;
+border: 1px solid rgba(196,132,90,0.16);
+transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+animation: fadeUp 0.45s ease both;
+position: relative;
+}
+.card:hover {
+transform: translateY(-3px);
+border-color: rgba(196,132,90,0.4);
+box-shadow: 0 10px 36px rgba(0,0,0,0.45);
+}
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(14px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+
+.card-delete {
+position: absolute;
+top: 8px; right: 8px;
+background: rgba(0,0,0,0.5);
+border: none;
+color: var(–fog);
+font-size: 0.7rem;
+width: 22px; height: 22px;
+display: flex; align-items: center; justify-content: center;
+cursor: pointer;
+opacity: 0;
+transition: opacity 0.2s, color 0.2s;
+z-index: 10;
+border-radius: 2px;
+}
+.card:hover .card-delete { opacity: 1; }
+.card-delete:hover { color: #e07070; }
+
+.card-image-area {
+width: 100%;
+aspect-ratio: 4/3;
+position: relative;
+overflow: hidden;
+border-bottom: 1px solid rgba(196,132,90,0.1);
+cursor: pointer;
+}
+.card-image-area img {
+width: 100%; height: 100%;
+object-fit: cover;
+display: block;
+}
+.card-image-placeholder {
+width: 100%; height: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+background: linear-gradient(135deg, #2a1f18 0%, #1e1710 100%);
+transition: background 0.2s;
+gap: 6px;
+}
+.card-image-area:hover .card-image-placeholder { background: linear-gradient(135deg, #321f15 0%, #221a12 100%); }
+.card-image-placeholder .plus { font-size: 1.4rem; color: rgba(196,132,90,0.3); transition: color 0.2s; }
+.card-image-area:hover .card-image-placeholder .plus { color: rgba(196,132,90,0.65); }
+.card-image-placeholder .ph-label {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.58rem;
+letter-spacing: 0.14em;
+color: rgba(196,132,90,0.3);
+text-transform: uppercase;
+}
+.card-image-area.has-image .card-image-placeholder { display: none; }
+
+.card-body { padding: 16px 18px 18px; }
+.card-status-row { display: flex; align-items: center; gap: 6px; margin-bottom: 9px; flex-wrap: wrap; }
+
+.tag {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.58rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+padding: 3px 7px;
+}
+.tag-ready      { background: rgba(85,120,60,0.2);   color: #a8c87a; border: 1px solid rgba(168,200,122,0.28); }
+.tag-developing { background: rgba(160,86,46,0.2);   color: #d4845a; border: 1px solid rgba(212,132,90,0.28); }
+.tag-market     { background: rgba(122,62,31,0.2);   color: #c4845a; border: 1px solid rgba(196,132,90,0.28); }
+.tag-wholesale  { background: rgba(107,124,94,0.2);  color: #8fa080; border: 1px solid rgba(143,160,128,0.28); }
+.tag-seasonal   { background: rgba(80,100,140,0.2);  color: #8aabcc; border: 1px solid rgba(138,171,204,0.28); }
+.tag-seed       { background: rgba(100,80,60,0.2);   color: #a08868; border: 1px solid rgba(160,136,104,0.28); }
+.tag-branded    { background: rgba(140,80,140,0.2);  color: #c09ac0; border: 1px solid rgba(192,154,192,0.28); }
+
+.card-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 1rem;
+font-weight: 400;
+color: var(–cream);
+line-height: 1.35;
+margin-bottom: 7px;
+}
+.card-notes {
+font-size: 0.86rem;
+font-weight: 300;
+color: var(–fog);
+line-height: 1.6;
+font-style: italic;
+}
+.card-link-row {
+margin-top: 12px;
+padding-top: 10px;
+border-top: 1px solid rgba(196,132,90,0.1);
+display: flex;
+align-items: center;
+gap: 6px;
+}
+.card-link-text {
+flex: 1;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.62rem;
+color: var(–sage-light);
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+}
+.card-link-go {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.6rem;
+color: var(–fog);
+background: none; border: none;
+cursor: pointer;
+padding: 2px 5px;
+transition: color 0.2s;
+text-decoration: none;
+}
+.card-link-go:hover { color: var(–sage-light); }
+
+/* Loading state */
+.loading-state {
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 60px 0;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.68rem;
+color: var(–fog);
+letter-spacing: 0.14em;
+text-transform: uppercase;
+gap: 10px;
+}
+.loading-dot {
+width: 5px; height: 5px;
+background: var(–clay-light);
+border-radius: 50%;
+animation: pulse 1.2s ease-in-out infinite;
+}
+.loading-dot:nth-child(2) { animation-delay: 0.2s; }
+.loading-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes pulse {
+0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+40% { opacity: 1; transform: scale(1); }
+}
+
+.empty-state {
+padding: 48px 0;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.65rem;
+color: rgba(140,126,116,0.4);
+letter-spacing: 0.14em;
+text-transform: uppercase;
+text-align: center;
+}
+
+/* Modal */
+.modal-overlay {
+position: fixed; inset: 0;
+background: rgba(10,8,6,0.88);
+display: none; align-items: center; justify-content: center;
+z-index: 100; backdrop-filter: blur(5px);
+}
+.modal-overlay.open { display: flex; }
+.modal {
+background: #211916;
+border: 1px solid rgba(196,132,90,0.3);
+padding: 38px; width: 500px; max-width: 92vw;
+max-height: 90vh;
+overflow-y: auto;
+animation: fadeUp 0.3s ease;
+}
+.modal h3 { font-family: ‘Playfair Display’, serif; font-size: 1.35rem; font-style: italic; color: var(–cream); margin-bottom: 24px; }
+.modal label { display: block; font-family: ‘DM Mono’, monospace; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(–fog); margin-bottom: 6px; margin-top: 16px; }
+.modal input, .modal textarea, .modal select { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(196,132,90,0.18); color: var(–cream); font-family: ‘Cormorant Garamond’, serif; font-size: 0.98rem; padding: 9px 13px; outline: none; transition: border-color 0.2s; resize: none; }
+.modal input:focus, .modal textarea:focus, .modal select:focus { border-color: rgba(196,132,90,0.5); }
+.modal select option { background: #211916; }
+.modal-actions { display: flex; gap: 10px; margin-top: 24px; justify-content: flex-end; }
+.modal-actions button { font-family: ‘DM Mono’, monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 9px 22px; border: 1px solid rgba(196,132,90,0.3); background: none; color: var(–clay-light); cursor: pointer; transition: all 0.2s; }
+.modal-actions button.primary { background: rgba(196,132,90,0.13); }
+.modal-actions button:hover { background: rgba(196,132,90,0.18); border-color: var(–clay-light); }
+.modal-actions button.cancel { color: var(–fog); border-color: rgba(255,255,255,0.1); }
+.modal-actions button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+footer { padding: 22px 60px; border-top: 1px solid rgba(196,132,90,0.12); display: flex; justify-content: space-between; align-items: center; }
+footer .footer-brand { font-family: ‘Playfair Display’, serif; font-style: italic; font-size: 0.88rem; color: var(–fog); }
+footer .footer-note { font-family: ‘DM Mono’, monospace; font-size: 0.6rem; color: rgba(140,126,116,0.45); letter-spacing: 0.1em; }
+
+.toast {
+position: fixed;
+bottom: 30px; left: 50%;
+transform: translateX(-50%) translateY(20px);
+background: #2c2420;
+border: 1px solid rgba(196,132,90,0.3);
+color: var(–cream);
+font-family: ‘DM Mono’, monospace;
+font-size: 0.68rem;
+letter-spacing: 0.1em;
+padding: 10px 20px;
+opacity: 0;
+transition: all 0.3s ease;
+z-index: 200;
+pointer-events: none;
+}
+.toast.show {
+opacity: 1;
+transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 900px) { .social-layout { grid-template-columns: 1fr; } }
+@media (max-width: 680px) {
+header, main, .section-nav, footer { padding-left: 20px; padding-right: 20px; }
+.board { columns: 1; }
+header { flex-direction: column; gap: 16px; }
+.header-right { text-align: left; }
+}
+</style>
+
+</head>
+<body>
+
+<div class="palette-strip" aria-hidden="true">
+  <span style="background:#7a3e1f"></span><span style="background:#9a4e2a"></span>
+  <span style="background:#c4845a"></span><span style="background:#d4c9bc"></span>
+  <span style="background:#8fa080"></span><span style="background:#6b7c5e"></span>
+  <span style="background:#4a3f38"></span><span style="background:#2c2420"></span>
+</div>
+
+<header>
+  <div class="header-left">
+    <h1>Bird Creek <em>Studios</em></h1>
+    <div class="subtitle">Ideas &amp; Inspiration Bank</div>
+  </div>
+  <div class="header-right">
+    Tap any card to edit · Tap image to update photo<br>
+    Ask Claude to add or update cards
+  </div>
+</header>
+
+<nav class="section-nav">
+  <button class="active" onclick="showSection('social', this)">✦ Social Media</button>
+  <button onclick="showSection('products', this)">🏺 Product Ideas</button>
+  <button onclick="showSection('branded', this)">◈ Branded Products</button>
+  <button onclick="showSection('seeds', this)">🌱 Seed Ideas</button>
+</nav>
+
+<main>
+
+  <!-- SOCIAL -->
+
+  <div class="section-panel active" id="panel-social">
+    <div class="section-header">
+      <h2>Social Media</h2>
+      <span class="count" id="count-social"></span>
+    </div>
+    <div class="social-layout">
+      <div class="social-col">
+        <div class="social-col-header reels">
+          <h3>Reels</h3>
+          <span class="col-count" id="count-reels"></span>
+          <button class="col-add-btn" onclick="openModal('reels')">＋</button>
+        </div>
+        <div class="board" id="board-reels"><div class="loading-state"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div></div>
+      </div>
+      <div class="social-col">
+        <div class="social-col-header posts">
+          <h3>Posts</h3>
+          <span class="col-count" id="count-posts"></span>
+          <button class="col-add-btn" onclick="openModal('posts')">＋</button>
+        </div>
+        <div class="board" id="board-posts"><div class="loading-state"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div></div>
+      </div>
+      <div class="social-col">
+        <div class="social-col-header booth">
+          <h3>Booth Display</h3>
+          <span class="col-count" id="count-booth"></span>
+          <button class="col-add-btn" onclick="openModal('booth')">＋</button>
+        </div>
+        <div class="board" id="board-booth"><div class="loading-state"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT IDEAS -->
+
+  <div class="section-panel" id="panel-products">
+    <div class="section-header">
+      <h2>Product Ideas</h2>
+      <span class="count" id="count-products"></span>
+      <button class="add-btn" onclick="openModal('products')">+ Add Idea</button>
+    </div>
+    <div class="board" id="board-products"><div class="loading-state"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div></div>
+  </div>
+
+  <!-- BRANDED -->
+
+  <div class="section-panel" id="panel-branded">
+    <div class="section-header">
+      <h2>Branded Product Ideas</h2>
+      <span class="count" id="count-branded"></span>
+      <button class="add-btn" onclick="openModal('branded')">+ Add Idea</button>
+    </div>
+    <div class="board" id="board-branded"><div class="loading-state"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div></div>
+  </div>
+
+  <!-- SEEDS -->
+
+  <div class="section-panel" id="panel-seeds">
+    <div class="section-header">
+      <h2>Seed Ideas</h2>
+      <span class="count" id="count-seeds"></span>
+      <button class="add-btn" onclick="openModal('seeds')">+ Add Idea</button>
+    </div>
+    <div class="board" id="board-seeds"><div class="loading-state"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div></div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-brand">Bird Creek Studios</div>
+  <div class="footer-note">Connected to live database · Changes save automatically</div>
+</footer>
+
+<!-- Modal -->
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h3 id="modal-title">New Idea</h3>
+    <label>Title</label>
+    <input type="text" id="m-title" placeholder="Give it a name…">
+    <label>Notes</label>
+    <textarea id="m-notes" rows="3" placeholder="Context, details, inspiration…"></textarea>
+    <label>Image URL</label>
+    <input type="url" id="m-image" placeholder="Paste direct image URL (iCloud, etc.)…">
+    <label>Link URL</label>
+    <input type="url" id="m-link" placeholder="Paste inspiration link…">
+    <label>Status</label>
+    <select id="m-status">
+      <option value="ready">Ready</option>
+      <option value="developing" selected>Developing</option>
+      <option value="seed">Seed</option>
+    </select>
+    <label>Tags (hold Ctrl/Cmd for multiple)</label>
+    <select id="m-tags" multiple style="height:86px">
+      <option value="market">Market</option>
+      <option value="wholesale">Wholesale</option>
+      <option value="branded">Branded</option>
+      <option value="spring">Spring</option>
+      <option value="summer">Summer</option>
+      <option value="fall">Fall</option>
+      <option value="winter">Winter</option>
+    </select>
+    <div class="modal-actions">
+      <button class="cancel" onclick="closeModal()">Cancel</button>
+      <button class="primary" id="modal-save-btn" onclick="saveCard()">Add to Board</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── Supabase init ──────────────────────────────────────────────
+  const { createClient } = supabase;
+  const sb = createClient(
+    'https://bsbpsxvcsnhiujwnynxh.supabase.co',
+    'sb_publishable_B0qQfh6RTyYMK4jiL-B14A_y9Zt_4xL'
+  );
+
+  // ── State ──────────────────────────────────────────────────────
+  let currentSection = 'reels';
+  const SECTIONS = ['reels','posts','booth','products','branded','seeds'];
+
+  // ── Toast ──────────────────────────────────────────────────────
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  // ── Load cards ─────────────────────────────────────────────────
+  async function loadSection(section) {
+    const board = document.getElementById('board-' + section);
+    if (!board) return;
+
+    const { data, error } = await sb
+      .from('cards')
+      .select('*')
+      .eq('section', section)
+      .order('sort_order', { ascending: true })
+      .order('created_at', { ascending: true });
+
+    if (error) {
+      board.innerHTML = `<div class="empty-state">Error loading — ${error.message}</div>`;
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      board.innerHTML = `<div class="empty-state">No ideas yet — tap ＋ to add one</div>`;
+    } else {
+      board.innerHTML = data.map(renderCard).join('');
+    }
+    updateCounts();
+  }
+
+  async function loadAll() {
+    for (const s of SECTIONS) await loadSection(s);
+  }
+
+  // ── Render card ────────────────────────────────────────────────
+  function renderCard(card) {
+    const tags = card.tags ? card.tags.split(',').filter(Boolean) : [];
+    const statusMap = {
+      ready: ['Ready','tag-ready'],
+      developing: ['Developing','tag-developing'],
+      seed: ['Seed','tag-seed']
+    };
+    const tagLabelMap = {
+      market: ['Market','tag-market'],
+      wholesale: ['Wholesale','tag-wholesale'],
+      branded: ['Branded','tag-branded'],
+      spring: ['Spring','tag-seasonal'],
+      summer: ['Summer','tag-seasonal'],
+      fall: ['Fall','tag-seasonal'],
+      winter: ['Winter','tag-seasonal'],
+    };
+
+    const [sLabel, sClass] = statusMap[card.status] || ['Developing','tag-developing'];
+    const tagHTML = `<span class="tag ${sClass}">${sLabel}</span>` +
+      tags.map(t => {
+        const [l,c] = tagLabelMap[t] || [t,'tag-seed'];
+        return `<span class="tag ${c}">${l}</span>`;
+      }).join('');
+
+    const imageHTML = card.image_url
+      ? `<div class="card-image-area has-image" onclick="editCardImage(${card.id}, '${escAttr(card.image_url)}')">
+           <img src="${escAttr(card.image_url)}" alt="${escAttr(card.title)}" onerror="this.parentElement.classList.remove('has-image')">
+           <div class="card-image-placeholder"><span class="plus">＋</span><span class="ph-label">Update photo</span></div>
+         </div>`
+      : `<div class="card-image-area" onclick="editCardImage(${card.id}, '')">
+           <div class="card-image-placeholder"><span class="plus">＋</span><span class="ph-label">Add photo link</span></div>
+         </div>`;
+
+    const linkHTML = card.link_url
+      ? `<div class="card-link-row">
+           <span class="card-link-text">${escHtml(card.link_url)}</span>
+           <a class="card-link-go" href="${escAttr(card.link_url)}" target="_blank" rel="noopener">↗</a>
+         </div>`
+      : '';
+
+    return `
+      <div class="card" data-id="${card.id}">
+        <button class="card-delete" onclick="deleteCard(${card.id}, '${escAttr(card.section)}')" title="Delete">✕</button>
+        ${imageHTML}
+        <div class="card-body">
+          <div class="card-status-row">${tagHTML}</div>
+          <div class="card-title">${escHtml(card.title)}</div>
+          ${card.notes ? `<div class="card-notes">${escHtml(card.notes)}</div>` : ''}
+          ${linkHTML}
+        </div>
+      </div>`;
+  }
+
+  function escHtml(str) {
+    if (!str) return '';
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function escAttr(str) {
+    if (!str) return '';
+    return str.replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+
+  // ── Edit image ─────────────────────────────────────────────────
+  async function editCardImage(id, current) {
+    const url = prompt('Paste a direct image URL (iCloud share link, etc.):', current || '');
+    if (url === null) return;
+    const { error } = await sb.from('cards').update({ image_url: url.trim() || null }).eq('id', id);
+    if (error) { showToast('Error saving image'); return; }
+    const card = document.querySelector(`.card[data-id="${id}"]`);
+    if (card) {
+      const section = card.closest('.board').id.replace('board-','');
+      await loadSection(section);
+    }
+    showToast('Image updated');
+  }
+
+  // ── Delete card ────────────────────────────────────────────────
+  async function deleteCard(id, section) {
+    if (!confirm('Delete this card?')) return;
+    const { error } = await sb.from('cards').delete().eq('id', id);
+    if (error) { showToast('Error deleting card'); return; }
+    await loadSection(section);
+    showToast('Card deleted');
+  }
+
+  // ── Modal ──────────────────────────────────────────────────────
+  function openModal(target) {
+    currentSection = target;
+    const labels = {
+      reels:'New Reel Idea', posts:'New Post Idea', booth:'New Booth Idea',
+      products:'New Product Idea', branded:'New Branded Idea', seeds:'New Seed Idea'
+    };
+    document.getElementById('modal-title').textContent = labels[target] || 'New Idea';
+    document.getElementById('modal').classList.add('open');
+    document.getElementById('m-title').focus();
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+    document.getElementById('m-title').value = '';
+    document.getElementById('m-notes').value = '';
+    document.getElementById('m-image').value = '';
+    document.getElementById('m-link').value = '';
+    document.getElementById('m-status').value = 'developing';
+    Array.from(document.getElementById('m-tags').options).forEach(o => o.selected = false);
+  }
+
+  async function saveCard() {
+    const title = document.getElementById('m-title').value.trim();
+    if (!title) { document.getElementById('m-title').focus(); return; }
+
+    const btn = document.getElementById('modal-save-btn');
+    btn.disabled = true;
+    btn.textContent = 'Saving…';
+
+    const tags = Array.from(document.getElementById('m-tags').selectedOptions).map(o => o.value).join(',');
+
+    const { error } = await sb.from('cards').insert({
+      section: currentSection,
+      title,
+      notes: document.getElementById('m-notes').value.trim() || null,
+      image_url: document.getElementById('m-image').value.trim() || null,
+      link_url: document.getElementById('m-link').value.trim() || null,
+      status: document.getElementById('m-status').value,
+      tags,
+      created_at: new Date().toISOString()
+    });
+
+    btn.disabled = false;
+    btn.textContent = 'Add to Board';
+
+    if (error) { showToast('Error saving — ' + error.message); return; }
+    closeModal();
+    await loadSection(currentSection);
+    showToast('Card added!');
+  }
+
+  // ── Navigation ─────────────────────────────────────────────────
+  function showSection(name, btn) {
+    document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.section-nav button').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // ── Counts ─────────────────────────────────────────────────────
+  function updateCounts() {
+    ['products','branded','seeds'].forEach(s => {
+      const n = document.getElementById('board-' + s)?.querySelectorAll('.card').length || 0;
+      const el = document.getElementById('count-' + s);
+      if (el) el.textContent = n + (n === 1 ? ' idea' : ' ideas');
+    });
+    ['reels','posts','booth'].forEach(c => {
+      const n = document.getElementById('board-' + c)?.querySelectorAll('.card').length || 0;
+      const el = document.getElementById('count-' + c);
+      if (el) el.textContent = n;
+    });
+    const total = ['reels','posts','booth'].reduce((a,c) =>
+      a + (document.getElementById('board-' + c)?.querySelectorAll('.card').length || 0), 0);
+    const el = document.getElementById('count-social');
+    if (el) el.textContent = total + (total === 1 ? ' idea' : ' ideas');
+  }
+
+  // ── Init ───────────────────────────────────────────────────────
+  document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  loadAll();
+</script>
+
+</body>
+</html>
