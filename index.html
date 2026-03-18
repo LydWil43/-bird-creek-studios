@@ -10,31 +10,31 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   :root {
-    --ink:        #1a1410;
-    --clay:       #7a3e1f;
-    --clay-mid:   #a0562e;
-    --clay-light: #c4845a;
-    --cream:      #f5ede0;
-    --parchment:  #ede0cc;
-    --smoke:      #d4c9bc;
-    --sage:       #6b7c5e;
-    --sage-light: #8fa080;
-    --charcoal:   #2c2420;
-    --ash:        #4a3f38;
-    --fog:        #8c7e74;
-    --paper:      #f0e8d8;
-    --reel-accent:#b07d4a;
-    --post-accent:#6b7c5e;
-    --booth-accent:#8a6a4a;
+    --ink:        #2e2118;
+    --clay:       #9a5230;
+    --clay-mid:   #b8693e;
+    --clay-light: #d4956a;
+    --cream:      #fdf6ec;
+    --parchment:  #f5e8d4;
+    --smoke:      #e4d8c8;
+    --sage:       #7a8f6e;
+    --sage-light: #9db08e;
+    --charcoal:   #3c3028;
+    --ash:        #5a5048;
+    --fog:        #9c8e84;
+    --paper:      #f8f0e0;
+    --reel-accent:#c49060;
+    --post-accent:#7a8f6e;
+    --booth-accent:#a07c5a;
   }
 
 - { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-background-color: #1a1410;
+background-color: #2e2118;
 background-image:
-radial-gradient(ellipse at 15% 10%, rgba(122,62,31,0.15) 0%, transparent 50%),
-radial-gradient(ellipse at 85% 85%, rgba(107,124,94,0.10) 0%, transparent 50%),
+radial-gradient(ellipse at 15% 10%, rgba(154,82,48,0.18) 0%, transparent 50%),
+radial-gradient(ellipse at 85% 85%, rgba(122,143,110,0.12) 0%, transparent 50%),
 url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘300’ height=‘300’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.65’ numOctaves=‘3’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘300’ height=‘300’ filter=‘url(%23n)’ opacity=‘0.04’/%3E%3C/svg%3E”);
 font-family: ‘Cormorant Garamond’, serif;
 color: var(–cream);
@@ -205,8 +205,8 @@ line-height: 1;
 .card {
 break-inside: avoid;
 margin-bottom: 18px;
-background: #221c17;
-border: 1px solid rgba(196,132,90,0.16);
+background: #3d2e22;
+border: 1px solid rgba(212,149,106,0.2);
 transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 animation: fadeUp 0.45s ease both;
 position: relative;
@@ -258,11 +258,11 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-background: linear-gradient(135deg, #2a1f18 0%, #1e1710 100%);
+background: linear-gradient(135deg, #4a3528 0%, #3a2a1e 100%);
 transition: background 0.2s;
 gap: 6px;
 }
-.card-image-area:hover .card-image-placeholder { background: linear-gradient(135deg, #321f15 0%, #221a12 100%); }
+.card-image-area:hover .card-image-placeholder { background: linear-gradient(135deg, #563d2e 0%, #432e20 100%); }
 .card-image-placeholder .plus { font-size: 1.4rem; color: rgba(196,132,90,0.3); transition: color 0.2s; }
 .card-image-area:hover .card-image-placeholder .plus { color: rgba(196,132,90,0.65); }
 .card-image-placeholder .ph-label {
@@ -381,8 +381,8 @@ z-index: 100; backdrop-filter: blur(5px);
 }
 .modal-overlay.open { display: flex; }
 .modal {
-background: #211916;
-border: 1px solid rgba(196,132,90,0.3);
+background: #3a2a1e;
+border: 1px solid rgba(212,149,106,0.35);
 padding: 38px; width: 500px; max-width: 92vw;
 max-height: 90vh;
 overflow-y: auto;
@@ -408,8 +408,8 @@ footer .footer-note { font-family: ‘DM Mono’, monospace; font-size: 0.6rem; 
 position: fixed;
 bottom: 30px; left: 50%;
 transform: translateX(-50%) translateY(20px);
-background: #2c2420;
-border: 1px solid rgba(196,132,90,0.3);
+background: #4a3828;
+border: 1px solid rgba(212,149,106,0.35);
 color: var(–cream);
 font-family: ‘DM Mono’, monospace;
 font-size: 0.68rem;
@@ -438,10 +438,10 @@ header { flex-direction: column; gap: 16px; }
 <body>
 
 <div class="palette-strip" aria-hidden="true">
-  <span style="background:#7a3e1f"></span><span style="background:#9a4e2a"></span>
-  <span style="background:#c4845a"></span><span style="background:#d4c9bc"></span>
-  <span style="background:#8fa080"></span><span style="background:#6b7c5e"></span>
-  <span style="background:#4a3f38"></span><span style="background:#2c2420"></span>
+  <span style="background:#9a5230"></span><span style="background:#b8693e"></span>
+  <span style="background:#d4956a"></span><span style="background:#e4d8c8"></span>
+  <span style="background:#9db08e"></span><span style="background:#7a8f6e"></span>
+  <span style="background:#5a5048"></span><span style="background:#3c3028"></span>
 </div>
 
 <header>
