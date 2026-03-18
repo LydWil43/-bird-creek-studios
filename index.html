@@ -6,465 +6,459 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bird Creek Studios — Ideas Bank</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   :root {
-    --ink:        #2e2118;
-    --clay:       #9a5230;
-    --clay-mid:   #b8693e;
-    --clay-light: #d4956a;
-    --cream:      #fdf6ec;
-    --parchment:  #f5e8d4;
-    --smoke:      #e4d8c8;
-    --sage:       #7a8f6e;
-    --sage-light: #9db08e;
-    --charcoal:   #3c3028;
-    --ash:        #5a5048;
-    --fog:        #9c8e84;
-    --paper:      #f8f0e0;
-    --reel-accent:#c49060;
-    --post-accent:#7a8f6e;
-    --booth-accent:#a07c5a;
+    --white:       #ffffff;
+    --off-white:   #f7f8f6;
+    --paper:       #f2f4f0;
+    --ink:         #1c2018;
+    --ink-mid:     #3a3f35;
+    --ink-light:   #6b7265;
+    --rule:        #d8ddd4;
+    --rule-light:  #eaeee7;
+    --sage:        #5a7a5e;
+    --sage-light:  #7a9e7e;
+    --sage-pale:   #dce8dc;
+    --blue:        #4a6e7e;
+    --blue-light:  #6a8e9e;
+    --blue-pale:   #d8e8ee;
+    --stone:       #8a8a7e;
+    --stone-pale:  #e8e8e2;
+    --blush:       #c4a882;
+    --blush-pale:  #f0e8dc;
+    --col-reels:   #5a7a5e;
+    --col-posts:   #4a6e7e;
+    --col-booth:   #8a7a5e;
   }
 
 - { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-background-color: #2e2118;
-background-image:
-radial-gradient(ellipse at 15% 10%, rgba(154,82,48,0.18) 0%, transparent 50%),
-radial-gradient(ellipse at 85% 85%, rgba(122,143,110,0.12) 0%, transparent 50%),
-url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘300’ height=‘300’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.65’ numOctaves=‘3’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘300’ height=‘300’ filter=‘url(%23n)’ opacity=‘0.04’/%3E%3C/svg%3E”);
-font-family: ‘Cormorant Garamond’, serif;
-color: var(–cream);
+background: var(–white);
+font-family: ‘Jost’, sans-serif;
+color: var(–ink);
 min-height: 100vh;
 }
 
-.palette-strip { display: flex; height: 5px; }
-.palette-strip span { flex: 1; }
+.top-rule {
+height: 3px;
+background: linear-gradient(90deg, var(–sage) 0%, var(–blue) 50%, var(–sage-light) 100%);
+}
 
-header {
-padding: 52px 60px 36px;
-display: flex;
-align-items: flex-end;
-justify-content: space-between;
-border-bottom: 1px solid rgba(196,132,90,0.2);
-position: relative;
+.masthead {
+padding: 48px 64px 0;
+border-bottom: 1px solid var(–rule);
 }
-header::before {
-content: ‘’;
-position: absolute;
-bottom: -1px; left: 60px;
-width: 100px; height: 2px;
-background: var(–clay-light);
+.masthead-inner {
+display: grid;
+grid-template-columns: 1fr auto;
+align-items: end;
+padding-bottom: 28px;
+gap: 24px;
 }
-.header-left h1 {
-font-family: ‘Playfair Display’, serif;
-font-size: clamp(2.2rem, 4vw, 3.6rem);
-font-weight: 400;
-letter-spacing: -0.02em;
-line-height: 1;
-color: var(–cream);
-}
-.header-left h1 em { font-style: italic; color: var(–clay-light); }
-.header-left .subtitle {
-font-size: 0.72rem;
-color: var(–fog);
-letter-spacing: 0.2em;
-text-transform: uppercase;
-margin-top: 10px;
+.masthead-kicker {
 font-family: ‘DM Mono’, monospace;
+font-size: 0.62rem;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+color: var(–sage);
+margin-bottom: 10px;
 }
-.header-right {
+.masthead h1 {
+font-family: ‘Libre Baskerville’, serif;
+font-size: clamp(2.4rem, 5vw, 4.2rem);
+font-weight: 400;
+letter-spacing: -0.03em;
+line-height: 0.95;
+color: var(–ink);
+}
+.masthead h1 em { font-style: italic; color: var(–sage); }
+.masthead-meta {
 text-align: right;
 font-family: ‘DM Mono’, monospace;
-font-size: 0.68rem;
-color: var(–fog);
+font-size: 0.6rem;
+color: var(–stone);
 line-height: 2;
+letter-spacing: 0.06em;
+}
+.masthead-date {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.6rem;
+color: var(–stone);
+letter-spacing: 0.1em;
+padding-top: 12px;
+padding-bottom: 16px;
+border-top: 1px solid var(–rule-light);
+display: flex;
+justify-content: space-between;
+align-items: center;
 }
 
 .section-nav {
 display: flex;
-padding: 0 60px;
-margin-top: 36px;
-border-bottom: 1px solid rgba(196,132,90,0.12);
+padding: 0 64px;
+background: var(–white);
+border-bottom: 1px solid var(–rule);
 overflow-x: auto;
+position: sticky;
+top: 0;
+z-index: 50;
 }
 .section-nav button {
-background: none; border: none;
-padding: 13px 26px;
+background: none;
+border: none;
+border-bottom: 2px solid transparent;
+padding: 14px 24px;
 font-family: ‘DM Mono’, monospace;
-font-size: 0.68rem;
-letter-spacing: 0.14em;
+font-size: 0.62rem;
+letter-spacing: 0.16em;
 text-transform: uppercase;
-color: var(–fog);
+color: var(–stone);
 cursor: pointer;
-position: relative;
-transition: color 0.2s;
+transition: color 0.2s, border-color 0.2s;
 white-space: nowrap;
+margin-bottom: -1px;
 }
-.section-nav button::after {
-content: ‘’;
-position: absolute;
-bottom: -1px; left: 0; right: 0;
-height: 2px;
-background: var(–clay-light);
-transform: scaleX(0);
-transition: transform 0.25s;
-}
-.section-nav button:hover { color: var(–cream); }
-.section-nav button.active { color: var(–clay-light); }
-.section-nav button.active::after { transform: scaleX(1); }
+.section-nav button:hover { color: var(–ink); }
+.section-nav button.active { color: var(–sage); border-bottom-color: var(–sage); }
 
-main { padding: 44px 60px 80px; }
+main { padding: 48px 64px 96px; }
 .section-panel { display: none; }
 .section-panel.active { display: block; }
 
 .section-header {
-display: flex;
+display: grid;
+grid-template-columns: 1fr auto auto;
 align-items: baseline;
 gap: 16px;
-margin-bottom: 32px;
+margin-bottom: 36px;
+padding-bottom: 16px;
+border-bottom: 2px solid var(–ink);
 }
 .section-header h2 {
-font-family: ‘Playfair Display’, serif;
-font-size: 1.9rem;
+font-family: ‘Libre Baskerville’, serif;
+font-size: 2rem;
 font-weight: 400;
 font-style: italic;
-color: var(–cream);
+color: var(–ink);
+letter-spacing: -0.02em;
 }
 .section-header .count {
 font-family: ‘DM Mono’, monospace;
-font-size: 0.68rem;
-color: var(–fog);
+font-size: 0.6rem;
+color: var(–stone);
+letter-spacing: 0.1em;
 }
 .add-btn {
-margin-left: auto;
 background: none;
-border: 1px solid rgba(196,132,90,0.35);
-color: var(–clay-light);
+border: 1px solid var(–rule);
+color: var(–sage);
 font-family: ‘DM Mono’, monospace;
-font-size: 0.68rem;
-letter-spacing: 0.12em;
+font-size: 0.6rem;
+letter-spacing: 0.14em;
 text-transform: uppercase;
-padding: 8px 18px;
+padding: 7px 16px;
 cursor: pointer;
 transition: all 0.2s;
-white-space: nowrap;
 }
-.add-btn:hover { background: rgba(196,132,90,0.1); border-color: var(–clay-light); }
+.add-btn:hover { background: var(–sage-pale); border-color: var(–sage); }
 
 .social-layout {
 display: grid;
 grid-template-columns: 1fr 1fr 1fr;
-gap: 28px;
+gap: 0;
 align-items: start;
+border: 1px solid var(–rule);
 }
+.social-col {
+border-right: 1px solid var(–rule);
+padding: 24px;
+}
+.social-col:last-child { border-right: none; }
 
 .social-col-header {
 display: flex;
 align-items: center;
-gap: 10px;
-margin-bottom: 16px;
+gap: 8px;
+margin-bottom: 20px;
 padding-bottom: 12px;
-border-bottom: 2px solid;
+border-bottom: 1px solid var(–rule);
 }
-.social-col-header.reels   { border-color: var(–reel-accent); }
-.social-col-header.posts   { border-color: var(–post-accent); }
-.social-col-header.booth   { border-color: var(–booth-accent); }
+.social-col:nth-child(1) .social-col-header { border-bottom-color: var(–col-reels); }
+.social-col:nth-child(2) .social-col-header { border-bottom-color: var(–col-posts); }
+.social-col:nth-child(3) .social-col-header { border-bottom-color: var(–col-booth); }
 
 .social-col-header h3 {
-font-family: ‘Playfair Display’, serif;
-font-size: 1.1rem;
+font-family: ‘Libre Baskerville’, serif;
+font-size: 1rem;
 font-style: italic;
 font-weight: 400;
-color: var(–cream);
+color: var(–ink);
 }
+.col-accent { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.reels-accent { background: var(–col-reels); }
+.posts-accent { background: var(–col-posts); }
+.booth-accent { background: var(–col-booth); }
+
 .social-col-header .col-count {
 font-family: ‘DM Mono’, monospace;
-font-size: 0.62rem;
-color: var(–fog);
+font-size: 0.58rem;
+color: var(–stone);
 margin-left: auto;
 }
 .col-add-btn {
 background: none; border: none;
-font-family: ‘DM Mono’, monospace;
-font-size: 0.9rem;
-color: var(–fog);
-cursor: pointer;
-padding: 2px 6px;
-transition: color 0.2s;
-line-height: 1;
+font-size: 1.1rem; color: var(–stone);
+cursor: pointer; padding: 0 4px;
+line-height: 1; transition: color 0.2s;
 }
-.col-add-btn:hover { color: var(–clay-light); }
+.col-add-btn:hover { color: var(–sage); }
 
-.board { columns: 3 260px; column-gap: 18px; }
+.board { columns: 3 220px; column-gap: 16px; }
 .social-col .board { columns: 1; }
 
 .card {
 break-inside: avoid;
-margin-bottom: 18px;
-background: #3d2e22;
-border: 1px solid rgba(212,149,106,0.2);
-transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-animation: fadeUp 0.45s ease both;
+margin-bottom: 16px;
+background: var(–white);
+border: 1px solid var(–rule);
+transition: box-shadow 0.25s ease;
+animation: fadeUp 0.4s ease both;
 position: relative;
 }
-.card:hover {
-transform: translateY(-3px);
-border-color: rgba(196,132,90,0.4);
-box-shadow: 0 10px 36px rgba(0,0,0,0.45);
-}
+.card:hover { box-shadow: 0 4px 24px rgba(28,32,24,0.08); }
 @keyframes fadeUp {
-from { opacity: 0; transform: translateY(14px); }
+from { opacity: 0; transform: translateY(10px); }
 to   { opacity: 1; transform: translateY(0); }
 }
+.card:nth-child(1){animation-delay:.03s}.card:nth-child(2){animation-delay:.06s}
+.card:nth-child(3){animation-delay:.09s}.card:nth-child(4){animation-delay:.12s}
+.card:nth-child(5){animation-delay:.15s}.card:nth-child(6){animation-delay:.18s}
 
 .card-delete {
-position: absolute;
-top: 8px; right: 8px;
-background: rgba(0,0,0,0.5);
-border: none;
-color: var(–fog);
-font-size: 0.7rem;
-width: 22px; height: 22px;
+position: absolute; top: 8px; right: 8px;
+background: rgba(255,255,255,0.92);
+border: 1px solid var(–rule);
+color: var(–stone);
+font-size: 0.58rem;
+width: 20px; height: 20px;
 display: flex; align-items: center; justify-content: center;
-cursor: pointer;
-opacity: 0;
-transition: opacity 0.2s, color 0.2s;
-z-index: 10;
-border-radius: 2px;
+cursor: pointer; opacity: 0;
+transition: opacity 0.2s, color 0.2s; z-index: 10;
 }
 .card:hover .card-delete { opacity: 1; }
-.card-delete:hover { color: #e07070; }
+.card-delete:hover { color: #c04040; background: #fff0f0; border-color: #c04040; }
 
 .card-image-area {
-width: 100%;
-aspect-ratio: 4/3;
-position: relative;
-overflow: hidden;
-border-bottom: 1px solid rgba(196,132,90,0.1);
-cursor: pointer;
+width: 100%; aspect-ratio: 3/2;
+position: relative; overflow: hidden;
+border-bottom: 1px solid var(–rule-light);
+cursor: pointer; background: var(–paper);
 }
 .card-image-area img {
 width: 100%; height: 100%;
-object-fit: cover;
-display: block;
+object-fit: cover; display: block;
+transition: transform 0.4s ease;
 }
+.card:hover .card-image-area img { transform: scale(1.03); }
 .card-image-placeholder {
 width: 100%; height: 100%;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-background: linear-gradient(135deg, #4a3528 0%, #3a2a1e 100%);
-transition: background 0.2s;
-gap: 6px;
+display: flex; flex-direction: column;
+align-items: center; justify-content: center;
+gap: 6px; transition: background 0.2s;
 }
-.card-image-area:hover .card-image-placeholder { background: linear-gradient(135deg, #563d2e 0%, #432e20 100%); }
-.card-image-placeholder .plus { font-size: 1.4rem; color: rgba(196,132,90,0.3); transition: color 0.2s; }
-.card-image-area:hover .card-image-placeholder .plus { color: rgba(196,132,90,0.65); }
+.card-image-area:hover .card-image-placeholder { background: var(–sage-pale); }
+.card-image-placeholder .plus { font-size: 1.2rem; color: var(–rule); transition: color 0.2s; }
+.card-image-area:hover .card-image-placeholder .plus { color: var(–sage); }
 .card-image-placeholder .ph-label {
 font-family: ‘DM Mono’, monospace;
-font-size: 0.58rem;
-letter-spacing: 0.14em;
-color: rgba(196,132,90,0.3);
-text-transform: uppercase;
+font-size: 0.55rem; letter-spacing: 0.14em;
+color: var(–stone); text-transform: uppercase;
 }
 .card-image-area.has-image .card-image-placeholder { display: none; }
 
-.card-body { padding: 16px 18px 18px; }
-.card-status-row { display: flex; align-items: center; gap: 6px; margin-bottom: 9px; flex-wrap: wrap; }
+.card-body { padding: 14px 16px 16px; }
+.card-status-row { display: flex; align-items: center; gap: 5px; margin-bottom: 8px; flex-wrap: wrap; }
 
 .tag {
 font-family: ‘DM Mono’, monospace;
-font-size: 0.58rem;
-letter-spacing: 0.1em;
-text-transform: uppercase;
-padding: 3px 7px;
+font-size: 0.54rem; letter-spacing: 0.1em;
+text-transform: uppercase; padding: 2px 6px; border: 1px solid;
 }
-.tag-ready      { background: rgba(85,120,60,0.2);   color: #a8c87a; border: 1px solid rgba(168,200,122,0.28); }
-.tag-developing { background: rgba(160,86,46,0.2);   color: #d4845a; border: 1px solid rgba(212,132,90,0.28); }
-.tag-market     { background: rgba(122,62,31,0.2);   color: #c4845a; border: 1px solid rgba(196,132,90,0.28); }
-.tag-wholesale  { background: rgba(107,124,94,0.2);  color: #8fa080; border: 1px solid rgba(143,160,128,0.28); }
-.tag-seasonal   { background: rgba(80,100,140,0.2);  color: #8aabcc; border: 1px solid rgba(138,171,204,0.28); }
-.tag-seed       { background: rgba(100,80,60,0.2);   color: #a08868; border: 1px solid rgba(160,136,104,0.28); }
-.tag-branded    { background: rgba(140,80,140,0.2);  color: #c09ac0; border: 1px solid rgba(192,154,192,0.28); }
+.tag-ready      { background: #edf4ed; color: var(–sage);    border-color: var(–sage-pale); }
+.tag-developing { background: var(–blue-pale); color: var(–blue); border-color: #b8d4de; }
+.tag-seed       { background: var(–stone-pale); color: var(–stone); border-color: #d4d4cc; }
+.tag-market     { background: var(–blush-pale); color: #8a6040; border-color: #ddd0bc; }
+.tag-wholesale  { background: var(–sage-pale); color: var(–sage); border-color: #c0d8c0; }
+.tag-seasonal   { background: var(–blue-pale); color: var(–blue); border-color: #b8d4de; }
+.tag-branded    { background: #f0ecf8; color: #7060a0; border-color: #d8d0ec; }
 
 .card-title {
-font-family: ‘Playfair Display’, serif;
-font-size: 1rem;
-font-weight: 400;
-color: var(–cream);
-line-height: 1.35;
-margin-bottom: 7px;
+font-family: ‘Libre Baskerville’, serif;
+font-size: 0.95rem; font-weight: 400;
+color: var(–ink); line-height: 1.4; margin-bottom: 6px;
 }
 .card-notes {
-font-size: 0.86rem;
-font-weight: 300;
-color: var(–fog);
-line-height: 1.6;
-font-style: italic;
+font-family: ‘Jost’, sans-serif;
+font-size: 0.78rem; font-weight: 300;
+color: var(–ink-light); line-height: 1.65;
 }
 .card-link-row {
-margin-top: 12px;
-padding-top: 10px;
-border-top: 1px solid rgba(196,132,90,0.1);
-display: flex;
-align-items: center;
-gap: 6px;
+margin-top: 10px; padding-top: 10px;
+border-top: 1px solid var(–rule-light);
+display: flex; align-items: center; gap: 6px;
 }
 .card-link-text {
-flex: 1;
-font-family: ‘DM Mono’, monospace;
-font-size: 0.62rem;
-color: var(–sage-light);
-overflow: hidden;
-text-overflow: ellipsis;
-white-space: nowrap;
+flex: 1; font-family: ‘DM Mono’, monospace;
+font-size: 0.58rem; color: var(–blue-light);
+overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .card-link-go {
-font-family: ‘DM Mono’, monospace;
-font-size: 0.6rem;
-color: var(–fog);
-background: none; border: none;
-cursor: pointer;
-padding: 2px 5px;
-transition: color 0.2s;
-text-decoration: none;
+font-family: ‘DM Mono’, monospace; font-size: 0.58rem;
+color: var(–stone); background: none; border: none;
+cursor: pointer; padding: 2px 4px; transition: color 0.2s; text-decoration: none;
 }
-.card-link-go:hover { color: var(–sage-light); }
+.card-link-go:hover { color: var(–blue); }
 
-/* Loading state */
 .loading-state {
-display: flex;
-align-items: center;
-justify-content: center;
-padding: 60px 0;
-font-family: ‘DM Mono’, monospace;
-font-size: 0.68rem;
-color: var(–fog);
-letter-spacing: 0.14em;
-text-transform: uppercase;
-gap: 10px;
+display: flex; align-items: center; justify-content: center;
+padding: 48px 0; gap: 6px;
 }
 .loading-dot {
-width: 5px; height: 5px;
-background: var(–clay-light);
-border-radius: 50%;
-animation: pulse 1.2s ease-in-out infinite;
+width: 4px; height: 4px; background: var(–rule);
+border-radius: 50%; animation: pulse 1.2s ease-in-out infinite;
 }
-.loading-dot:nth-child(2) { animation-delay: 0.2s; }
-.loading-dot:nth-child(3) { animation-delay: 0.4s; }
+.loading-dot:nth-child(2){animation-delay:.2s}.loading-dot:nth-child(3){animation-delay:.4s}
 @keyframes pulse {
-0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
-40% { opacity: 1; transform: scale(1); }
+0%,80%,100%{opacity:.2;transform:scale(.8)} 40%{opacity:1;transform:scale(1.2)}
 }
-
 .empty-state {
-padding: 48px 0;
-font-family: ‘DM Mono’, monospace;
-font-size: 0.65rem;
-color: rgba(140,126,116,0.4);
-letter-spacing: 0.14em;
-text-transform: uppercase;
-text-align: center;
+padding: 48px 0; font-family: ‘DM Mono’, monospace;
+font-size: 0.6rem; color: var(–rule);
+letter-spacing: 0.14em; text-transform: uppercase; text-align: center;
 }
 
-/* Modal */
 .modal-overlay {
 position: fixed; inset: 0;
-background: rgba(10,8,6,0.88);
+background: rgba(28,32,24,0.45);
 display: none; align-items: center; justify-content: center;
-z-index: 100; backdrop-filter: blur(5px);
+z-index: 100; backdrop-filter: blur(4px);
 }
 .modal-overlay.open { display: flex; }
 .modal {
-background: #3a2a1e;
-border: 1px solid rgba(212,149,106,0.35);
-padding: 38px; width: 500px; max-width: 92vw;
-max-height: 90vh;
-overflow-y: auto;
-animation: fadeUp 0.3s ease;
+background: var(–white);
+border: 1px solid var(–rule);
+padding: 40px; width: 520px; max-width: 94vw;
+max-height: 92vh; overflow-y: auto;
+animation: fadeUp 0.25s ease;
+box-shadow: 0 20px 60px rgba(28,32,24,0.12);
 }
-.modal h3 { font-family: ‘Playfair Display’, serif; font-size: 1.35rem; font-style: italic; color: var(–cream); margin-bottom: 24px; }
-.modal label { display: block; font-family: ‘DM Mono’, monospace; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(–fog); margin-bottom: 6px; margin-top: 16px; }
-.modal input, .modal textarea, .modal select { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(196,132,90,0.18); color: var(–cream); font-family: ‘Cormorant Garamond’, serif; font-size: 0.98rem; padding: 9px 13px; outline: none; transition: border-color 0.2s; resize: none; }
-.modal input:focus, .modal textarea:focus, .modal select:focus { border-color: rgba(196,132,90,0.5); }
-.modal select option { background: #211916; }
-.modal-actions { display: flex; gap: 10px; margin-top: 24px; justify-content: flex-end; }
-.modal-actions button { font-family: ‘DM Mono’, monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 9px 22px; border: 1px solid rgba(196,132,90,0.3); background: none; color: var(–clay-light); cursor: pointer; transition: all 0.2s; }
-.modal-actions button.primary { background: rgba(196,132,90,0.13); }
-.modal-actions button:hover { background: rgba(196,132,90,0.18); border-color: var(–clay-light); }
-.modal-actions button.cancel { color: var(–fog); border-color: rgba(255,255,255,0.1); }
-.modal-actions button:disabled { opacity: 0.5; cursor: not-allowed; }
+.modal-top-rule {
+height: 2px;
+background: linear-gradient(90deg, var(–sage), var(–blue));
+margin: -40px -40px 32px;
+}
+.modal h3 {
+font-family: ‘Libre Baskerville’, serif;
+font-size: 1.4rem; font-style: italic;
+font-weight: 400; color: var(–ink); margin-bottom: 24px;
+}
+.modal label {
+display: block; font-family: ‘DM Mono’, monospace;
+font-size: 0.58rem; letter-spacing: 0.16em;
+text-transform: uppercase; color: var(–stone);
+margin-bottom: 5px; margin-top: 16px;
+}
+.modal input, .modal textarea, .modal select {
+width: 100%; background: var(–off-white);
+border: 1px solid var(–rule); color: var(–ink);
+font-family: ‘Jost’, sans-serif; font-size: 0.92rem;
+padding: 9px 12px; outline: none;
+transition: border-color 0.2s, background 0.2s; resize: none;
+}
+.modal input:focus, .modal textarea:focus, .modal select:focus {
+border-color: var(–sage); background: var(–white);
+}
+.modal select option { background: var(–white); }
+.modal-actions { display: flex; gap: 10px; margin-top: 28px; justify-content: flex-end; }
+.modal-actions button {
+font-family: ‘DM Mono’, monospace; font-size: 0.62rem;
+letter-spacing: 0.14em; text-transform: uppercase;
+padding: 10px 22px; border: 1px solid var(–rule);
+background: none; color: var(–sage); cursor: pointer; transition: all 0.2s;
+}
+.modal-actions button.primary { background: var(–sage); color: var(–white); border-color: var(–sage); }
+.modal-actions button.primary:hover { background: var(–sage-light); border-color: var(–sage-light); }
+.modal-actions button.cancel { color: var(–stone); }
+.modal-actions button.cancel:hover { background: var(–paper); }
+.modal-actions button:disabled { opacity: 0.4; cursor: not-allowed; }
 
-footer { padding: 22px 60px; border-top: 1px solid rgba(196,132,90,0.12); display: flex; justify-content: space-between; align-items: center; }
-footer .footer-brand { font-family: ‘Playfair Display’, serif; font-style: italic; font-size: 0.88rem; color: var(–fog); }
-footer .footer-note { font-family: ‘DM Mono’, monospace; font-size: 0.6rem; color: rgba(140,126,116,0.45); letter-spacing: 0.1em; }
+footer {
+padding: 20px 64px; border-top: 1px solid var(–rule);
+display: flex; justify-content: space-between; align-items: center;
+background: var(–off-white);
+}
+.footer-brand { font-family: ‘Libre Baskerville’, serif; font-style: italic; font-size: 0.85rem; color: var(–ink-light); }
+.footer-note { font-family: ‘DM Mono’, monospace; font-size: 0.56rem; color: var(–stone); letter-spacing: 0.1em; }
 
 .toast {
-position: fixed;
-bottom: 30px; left: 50%;
-transform: translateX(-50%) translateY(20px);
-background: #4a3828;
-border: 1px solid rgba(212,149,106,0.35);
-color: var(–cream);
-font-family: ‘DM Mono’, monospace;
-font-size: 0.68rem;
-letter-spacing: 0.1em;
-padding: 10px 20px;
-opacity: 0;
-transition: all 0.3s ease;
-z-index: 200;
-pointer-events: none;
+position: fixed; bottom: 28px; left: 50%;
+transform: translateX(-50%) translateY(16px);
+background: var(–ink); color: var(–white);
+font-family: ‘DM Mono’, monospace; font-size: 0.62rem;
+letter-spacing: 0.1em; padding: 10px 20px;
+opacity: 0; transition: all 0.3s ease; z-index: 200; pointer-events: none;
 }
-.toast.show {
-opacity: 1;
-transform: translateX(-50%) translateY(0);
-}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-@media (max-width: 900px) { .social-layout { grid-template-columns: 1fr; } }
+@media (max-width: 960px) {
+.social-layout { grid-template-columns: 1fr; }
+.social-col { border-right: none; border-bottom: 1px solid var(–rule); }
+.social-col:last-child { border-bottom: none; }
+}
 @media (max-width: 680px) {
-header, main, .section-nav, footer { padding-left: 20px; padding-right: 20px; }
+.masthead, main, .section-nav, footer { padding-left: 24px; padding-right: 24px; }
+.masthead-inner { grid-template-columns: 1fr; }
+.masthead-meta { text-align: left; }
 .board { columns: 1; }
-header { flex-direction: column; gap: 16px; }
-.header-right { text-align: left; }
+.modal { padding: 28px 24px; }
+.modal-top-rule { margin: -28px -24px 24px; }
 }
 </style>
 
 </head>
 <body>
 
-<div class="palette-strip" aria-hidden="true">
-  <span style="background:#9a5230"></span><span style="background:#b8693e"></span>
-  <span style="background:#d4956a"></span><span style="background:#e4d8c8"></span>
-  <span style="background:#9db08e"></span><span style="background:#7a8f6e"></span>
-  <span style="background:#5a5048"></span><span style="background:#3c3028"></span>
-</div>
+<div class="top-rule"></div>
 
-<header>
-  <div class="header-left">
-    <h1>Bird Creek <em>Studios</em></h1>
-    <div class="subtitle">Ideas &amp; Inspiration Bank</div>
+<div class="masthead">
+  <div class="masthead-inner">
+    <div>
+      <div class="masthead-kicker">Ideas &amp; Inspiration Bank</div>
+      <h1>Bird Creek <em>Studios</em></h1>
+    </div>
+    <div class="masthead-meta">
+      Tap ＋ to add ideas<br>
+      Tap image to update photo<br>
+      Ask Claude to make changes
+    </div>
   </div>
-  <div class="header-right">
-    Tap any card to edit · Tap image to update photo<br>
-    Ask Claude to add or update cards
+  <div class="masthead-date">
+    <span id="today-date"></span>
+    <span>Vol. I</span>
   </div>
-</header>
+</div>
 
 <nav class="section-nav">
   <button class="active" onclick="showSection('social', this)">✦ Social Media</button>
-  <button onclick="showSection('products', this)">🏺 Product Ideas</button>
-  <button onclick="showSection('branded', this)">◈ Branded Products</button>
-  <button onclick="showSection('seeds', this)">🌱 Seed Ideas</button>
+  <button onclick="showSection('products', this)">○ Product Ideas</button>
+  <button onclick="showSection('branded', this)">◇ Branded Products</button>
+  <button onclick="showSection('seeds', this)">◌ Seed Ideas</button>
 </nav>
 
 <main>
-
-  <!-- SOCIAL -->
 
   <div class="section-panel active" id="panel-social">
     <div class="section-header">
@@ -473,7 +467,8 @@ header { flex-direction: column; gap: 16px; }
     </div>
     <div class="social-layout">
       <div class="social-col">
-        <div class="social-col-header reels">
+        <div class="social-col-header">
+          <span class="col-accent reels-accent"></span>
           <h3>Reels</h3>
           <span class="col-count" id="count-reels"></span>
           <button class="col-add-btn" onclick="openModal('reels')">＋</button>
@@ -481,7 +476,8 @@ header { flex-direction: column; gap: 16px; }
         <div class="board" id="board-reels"><div class="loading-state"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div></div>
       </div>
       <div class="social-col">
-        <div class="social-col-header posts">
+        <div class="social-col-header">
+          <span class="col-accent posts-accent"></span>
           <h3>Posts</h3>
           <span class="col-count" id="count-posts"></span>
           <button class="col-add-btn" onclick="openModal('posts')">＋</button>
@@ -489,7 +485,8 @@ header { flex-direction: column; gap: 16px; }
         <div class="board" id="board-posts"><div class="loading-state"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div></div>
       </div>
       <div class="social-col">
-        <div class="social-col-header booth">
+        <div class="social-col-header">
+          <span class="col-accent booth-accent"></span>
           <h3>Booth Display</h3>
           <span class="col-count" id="count-booth"></span>
           <button class="col-add-btn" onclick="openModal('booth')">＋</button>
@@ -498,8 +495,6 @@ header { flex-direction: column; gap: 16px; }
       </div>
     </div>
   </div>
-
-  <!-- PRODUCT IDEAS -->
 
   <div class="section-panel" id="panel-products">
     <div class="section-header">
@@ -510,8 +505,6 @@ header { flex-direction: column; gap: 16px; }
     <div class="board" id="board-products"><div class="loading-state"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div></div>
   </div>
 
-  <!-- BRANDED -->
-
   <div class="section-panel" id="panel-branded">
     <div class="section-header">
       <h2>Branded Product Ideas</h2>
@@ -520,8 +513,6 @@ header { flex-direction: column; gap: 16px; }
     </div>
     <div class="board" id="board-branded"><div class="loading-state"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div></div>
   </div>
-
-  <!-- SEEDS -->
 
   <div class="section-panel" id="panel-seeds">
     <div class="section-header">
@@ -536,20 +527,19 @@ header { flex-direction: column; gap: 16px; }
 
 <footer>
   <div class="footer-brand">Bird Creek Studios</div>
-  <div class="footer-note">Connected to live database · Changes save automatically</div>
+  <div class="footer-note">Connected · Changes save automatically</div>
 </footer>
-
-<!-- Modal -->
 
 <div class="modal-overlay" id="modal">
   <div class="modal">
+    <div class="modal-top-rule"></div>
     <h3 id="modal-title">New Idea</h3>
     <label>Title</label>
     <input type="text" id="m-title" placeholder="Give it a name…">
     <label>Notes</label>
     <textarea id="m-notes" rows="3" placeholder="Context, details, inspiration…"></textarea>
     <label>Image URL</label>
-    <input type="url" id="m-image" placeholder="Paste direct image URL (iCloud, etc.)…">
+    <input type="url" id="m-image" placeholder="Paste Cloudinary or direct image URL…">
     <label>Link URL</label>
     <input type="url" id="m-link" placeholder="Paste inspiration link…">
     <label>Status</label>
@@ -559,7 +549,7 @@ header { flex-direction: column; gap: 16px; }
       <option value="seed">Seed</option>
     </select>
     <label>Tags (hold Ctrl/Cmd for multiple)</label>
-    <select id="m-tags" multiple style="height:86px">
+    <select id="m-tags" multiple style="height:84px">
       <option value="market">Market</option>
       <option value="wholesale">Wholesale</option>
       <option value="branded">Branded</option>
@@ -578,18 +568,19 @@ header { flex-direction: column; gap: 16px; }
 <div class="toast" id="toast"></div>
 
 <script>
-  // ── Supabase init ──────────────────────────────────────────────
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const now = new Date();
+  document.getElementById('today-date').textContent = months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+
   const { createClient } = supabase;
   const sb = createClient(
     'https://bsbpsxvcsnhiujwnynxh.supabase.co',
     'sb_publishable_B0qQfh6RTyYMK4jiL-B14A_y9Zt_4xL'
   );
 
-  // ── State ──────────────────────────────────────────────────────
   let currentSection = 'reels';
   const SECTIONS = ['reels','posts','booth','products','branded','seeds'];
 
-  // ── Toast ──────────────────────────────────────────────────────
   function showToast(msg) {
     const t = document.getElementById('toast');
     t.textContent = msg;
@@ -597,128 +588,84 @@ header { flex-direction: column; gap: 16px; }
     setTimeout(() => t.classList.remove('show'), 2500);
   }
 
-  // ── Load cards ─────────────────────────────────────────────────
   async function loadSection(section) {
     const board = document.getElementById('board-' + section);
     if (!board) return;
-
     const { data, error } = await sb
-      .from('cards')
-      .select('*')
-      .eq('section', section)
+      .from('cards').select('*').eq('section', section)
       .order('sort_order', { ascending: true })
       .order('created_at', { ascending: true });
-
-    if (error) {
-      board.innerHTML = `<div class="empty-state">Error loading — ${error.message}</div>`;
-      return;
-    }
-
-    if (!data || data.length === 0) {
-      board.innerHTML = `<div class="empty-state">No ideas yet — tap ＋ to add one</div>`;
-    } else {
-      board.innerHTML = data.map(renderCard).join('');
-    }
+    if (error) { board.innerHTML = `<div class="empty-state">Error — ${error.message}</div>`; return; }
+    board.innerHTML = (!data || data.length === 0)
+      ? `<div class="empty-state">No ideas yet — tap ＋ to add one</div>`
+      : data.map(renderCard).join('');
     updateCounts();
   }
 
-  async function loadAll() {
-    for (const s of SECTIONS) await loadSection(s);
-  }
+  async function loadAll() { for (const s of SECTIONS) await loadSection(s); }
 
-  // ── Render card ────────────────────────────────────────────────
   function renderCard(card) {
     const tags = card.tags ? card.tags.split(',').filter(Boolean) : [];
-    const statusMap = {
-      ready: ['Ready','tag-ready'],
-      developing: ['Developing','tag-developing'],
-      seed: ['Seed','tag-seed']
-    };
+    const statusMap = { ready:['Ready','tag-ready'], developing:['Developing','tag-developing'], seed:['Seed','tag-seed'] };
     const tagLabelMap = {
-      market: ['Market','tag-market'],
-      wholesale: ['Wholesale','tag-wholesale'],
-      branded: ['Branded','tag-branded'],
-      spring: ['Spring','tag-seasonal'],
-      summer: ['Summer','tag-seasonal'],
-      fall: ['Fall','tag-seasonal'],
-      winter: ['Winter','tag-seasonal'],
+      market:['Market','tag-market'], wholesale:['Wholesale','tag-wholesale'], branded:['Branded','tag-branded'],
+      spring:['Spring','tag-seasonal'], summer:['Summer','tag-seasonal'], fall:['Fall','tag-seasonal'], winter:['Winter','tag-seasonal'],
     };
-
     const [sLabel, sClass] = statusMap[card.status] || ['Developing','tag-developing'];
     const tagHTML = `<span class="tag ${sClass}">${sLabel}</span>` +
-      tags.map(t => {
-        const [l,c] = tagLabelMap[t] || [t,'tag-seed'];
-        return `<span class="tag ${c}">${l}</span>`;
-      }).join('');
+      tags.map(t => { const [l,c] = tagLabelMap[t]||[t,'tag-seed']; return `<span class="tag ${c}">${l}</span>`; }).join('');
 
     const imageHTML = card.image_url
-      ? `<div class="card-image-area has-image" onclick="editCardImage(${card.id}, '${escAttr(card.image_url)}')">
+      ? `<div class="card-image-area has-image" onclick="editCardImage(${card.id},'${escAttr(card.image_url)}')">
            <img src="${escAttr(card.image_url)}" alt="${escAttr(card.title)}" onerror="this.parentElement.classList.remove('has-image')">
            <div class="card-image-placeholder"><span class="plus">＋</span><span class="ph-label">Update photo</span></div>
          </div>`
-      : `<div class="card-image-area" onclick="editCardImage(${card.id}, '')">
-           <div class="card-image-placeholder"><span class="plus">＋</span><span class="ph-label">Add photo link</span></div>
+      : `<div class="card-image-area" onclick="editCardImage(${card.id},'')">
+           <div class="card-image-placeholder"><span class="plus">＋</span><span class="ph-label">Add photo</span></div>
          </div>`;
 
     const linkHTML = card.link_url
       ? `<div class="card-link-row">
            <span class="card-link-text">${escHtml(card.link_url)}</span>
            <a class="card-link-go" href="${escAttr(card.link_url)}" target="_blank" rel="noopener">↗</a>
-         </div>`
-      : '';
+         </div>` : '';
 
-    return `
-      <div class="card" data-id="${card.id}">
-        <button class="card-delete" onclick="deleteCard(${card.id}, '${escAttr(card.section)}')" title="Delete">✕</button>
-        ${imageHTML}
-        <div class="card-body">
-          <div class="card-status-row">${tagHTML}</div>
-          <div class="card-title">${escHtml(card.title)}</div>
-          ${card.notes ? `<div class="card-notes">${escHtml(card.notes)}</div>` : ''}
-          ${linkHTML}
-        </div>
-      </div>`;
+    return `<div class="card" data-id="${card.id}">
+      <button class="card-delete" onclick="deleteCard(${card.id},'${escAttr(card.section)}')" title="Delete">✕</button>
+      ${imageHTML}
+      <div class="card-body">
+        <div class="card-status-row">${tagHTML}</div>
+        <div class="card-title">${escHtml(card.title)}</div>
+        ${card.notes ? `<div class="card-notes">${escHtml(card.notes)}</div>` : ''}
+        ${linkHTML}
+      </div>
+    </div>`;
   }
 
-  function escHtml(str) {
-    if (!str) return '';
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-  function escAttr(str) {
-    if (!str) return '';
-    return str.replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-  }
+  function escHtml(str) { if(!str)return''; return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function escAttr(str) { if(!str)return''; return str.replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 
-  // ── Edit image ─────────────────────────────────────────────────
   async function editCardImage(id, current) {
-    const url = prompt('Paste a direct image URL (iCloud share link, etc.):', current || '');
+    const url = prompt('Paste a Cloudinary or direct image URL:', current || '');
     if (url === null) return;
     const { error } = await sb.from('cards').update({ image_url: url.trim() || null }).eq('id', id);
     if (error) { showToast('Error saving image'); return; }
     const card = document.querySelector(`.card[data-id="${id}"]`);
-    if (card) {
-      const section = card.closest('.board').id.replace('board-','');
-      await loadSection(section);
-    }
+    if (card) await loadSection(card.closest('.board').id.replace('board-',''));
     showToast('Image updated');
   }
 
-  // ── Delete card ────────────────────────────────────────────────
   async function deleteCard(id, section) {
     if (!confirm('Delete this card?')) return;
     const { error } = await sb.from('cards').delete().eq('id', id);
-    if (error) { showToast('Error deleting card'); return; }
+    if (error) { showToast('Error deleting'); return; }
     await loadSection(section);
     showToast('Card deleted');
   }
 
-  // ── Modal ──────────────────────────────────────────────────────
   function openModal(target) {
     currentSection = target;
-    const labels = {
-      reels:'New Reel Idea', posts:'New Post Idea', booth:'New Booth Idea',
-      products:'New Product Idea', branded:'New Branded Idea', seeds:'New Seed Idea'
-    };
+    const labels = { reels:'New Reel Idea', posts:'New Post Idea', booth:'New Booth Idea', products:'New Product Idea', branded:'New Branded Idea', seeds:'New Seed Idea' };
     document.getElementById('modal-title').textContent = labels[target] || 'New Idea';
     document.getElementById('modal').classList.add('open');
     document.getElementById('m-title').focus();
@@ -726,10 +673,7 @@ header { flex-direction: column; gap: 16px; }
 
   function closeModal() {
     document.getElementById('modal').classList.remove('open');
-    document.getElementById('m-title').value = '';
-    document.getElementById('m-notes').value = '';
-    document.getElementById('m-image').value = '';
-    document.getElementById('m-link').value = '';
+    ['m-title','m-notes','m-image','m-link'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('m-status').value = 'developing';
     Array.from(document.getElementById('m-tags').options).forEach(o => o.selected = false);
   }
@@ -737,34 +681,24 @@ header { flex-direction: column; gap: 16px; }
   async function saveCard() {
     const title = document.getElementById('m-title').value.trim();
     if (!title) { document.getElementById('m-title').focus(); return; }
-
     const btn = document.getElementById('modal-save-btn');
-    btn.disabled = true;
-    btn.textContent = 'Saving…';
-
+    btn.disabled = true; btn.textContent = 'Saving…';
     const tags = Array.from(document.getElementById('m-tags').selectedOptions).map(o => o.value).join(',');
-
     const { error } = await sb.from('cards').insert({
-      section: currentSection,
-      title,
+      section: currentSection, title,
       notes: document.getElementById('m-notes').value.trim() || null,
       image_url: document.getElementById('m-image').value.trim() || null,
       link_url: document.getElementById('m-link').value.trim() || null,
       status: document.getElementById('m-status').value,
-      tags,
-      created_at: new Date().toISOString()
+      tags, created_at: new Date().toISOString()
     });
-
-    btn.disabled = false;
-    btn.textContent = 'Add to Board';
-
-    if (error) { showToast('Error saving — ' + error.message); return; }
+    btn.disabled = false; btn.textContent = 'Add to Board';
+    if (error) { showToast('Error — ' + error.message); return; }
     closeModal();
     await loadSection(currentSection);
     showToast('Card added!');
   }
 
-  // ── Navigation ─────────────────────────────────────────────────
   function showSection(name, btn) {
     document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.section-nav button').forEach(b => b.classList.remove('active'));
@@ -772,28 +706,24 @@ header { flex-direction: column; gap: 16px; }
     btn.classList.add('active');
   }
 
-  // ── Counts ─────────────────────────────────────────────────────
   function updateCounts() {
     ['products','branded','seeds'].forEach(s => {
-      const n = document.getElementById('board-' + s)?.querySelectorAll('.card').length || 0;
-      const el = document.getElementById('count-' + s);
-      if (el) el.textContent = n + (n === 1 ? ' idea' : ' ideas');
+      const n = document.getElementById('board-'+s)?.querySelectorAll('.card').length||0;
+      const el = document.getElementById('count-'+s);
+      if(el) el.textContent = n+(n===1?' idea':' ideas');
     });
     ['reels','posts','booth'].forEach(c => {
-      const n = document.getElementById('board-' + c)?.querySelectorAll('.card').length || 0;
-      const el = document.getElementById('count-' + c);
-      if (el) el.textContent = n;
+      const n = document.getElementById('board-'+c)?.querySelectorAll('.card').length||0;
+      const el = document.getElementById('count-'+c);
+      if(el) el.textContent = n;
     });
-    const total = ['reels','posts','booth'].reduce((a,c) =>
-      a + (document.getElementById('board-' + c)?.querySelectorAll('.card').length || 0), 0);
+    const total = ['reels','posts','booth'].reduce((a,c)=>a+(document.getElementById('board-'+c)?.querySelectorAll('.card').length||0),0);
     const el = document.getElementById('count-social');
-    if (el) el.textContent = total + (total === 1 ? ' idea' : ' ideas');
+    if(el) el.textContent = total+(total===1?' idea':' ideas');
   }
 
-  // ── Init ───────────────────────────────────────────────────────
-  document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
+  document.getElementById('modal').addEventListener('click', function(e) { if(e.target===this) closeModal(); });
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
   loadAll();
 </script>
 
